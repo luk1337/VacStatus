@@ -40,14 +40,6 @@ export default class Profile extends BasicComp {
 						<ProfileVacStatus profile={ state }/>
 					</div>
 				</div>
-				<div className="container">
-					<div className="row">
-						<div className="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-							<div id="disqus_thread" className="disqus_thread"></div>
-							<ProfileDisqus profile={ state }/>
-						</div>
-					</div>
-				</div>
 			</div>
 		);
 	}
@@ -382,51 +374,5 @@ class ProfileVacStatus extends BasicComp {
 				</div>
 			</div>
 		);
-	}
-}
-
-class ProfileDisqus extends BasicComp {
-	constructor(props) {
-		super(props);
-
-		let state = props.profile;
-		
-		if(document.getElementById('disqusJS') != null) return;
-
-		var disqus_identifier = state.steam_64_bit;
-
-		(function () {
-			var dsq = document.createElement('script');
-
-			dsq.id = "disqusJS";
-			dsq.type = 'text/javascript';
-			dsq.async = true;
-			dsq.src = '//vbanstatus.disqus.com/embed.js';
-
-			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-		})();
-	}
-
-	componentWillReceiveProps(props) {
-		this.setState(props.profile);
-	}
-
-	render() {
-		if(typeof DISQUS != 'undefined' && document.getElementById('disqus_thread') != null)
-		{
-			var state = this.state;
-
-			DISQUS.reset({
-				reload: true,
-				config: function()
-				{  
-					this.page.identifier = state.steam_64_bit;
-					this.page.url = window.location.href + '#!newthread';
-					this.page.title = 'VacStatus ['+ state.steam_64_bit +']';
-				}
-			});
-		}
-
-		return <div></div>;
 	}
 }
