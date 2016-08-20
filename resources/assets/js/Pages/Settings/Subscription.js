@@ -61,14 +61,14 @@ export default class Subscription extends BasicComp {
 
 		if(userMail !== undefined)
 		{
-			if(userMail.email)
+			if(userMail !== null && userMail.email)
 			{
 				email = userMail.email;
 				emailColor = 'has-warning';
 				if(userMail.verify == "verified") emailColor = "has-success";
 			}
 
-			if(userMail.pushbullet)
+			if(userMail !== null && userMail.pushbullet)
 			{
 				pushBullet = userMail.pushbullet;
 				pushBulletColor = 'has-warning';
