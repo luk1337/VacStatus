@@ -38,7 +38,7 @@ class SubscriptionCheck
 				->first();
 		}
 
-		$userLists = Subscription::where('subscription.user_id', $userMail->user_id)
+		$userLists = Subscription::where('subscription.user_id', $userMail ? $userMail->user_id : -1)
 			->whereNull('user_list.deleted_at')
 			->whereNull('subscription.deleted_at')
 			->leftJoin('user_list', 'subscription.user_list_id', '=', 'user_list.id')
@@ -83,7 +83,7 @@ class SubscriptionCheck
 
 	public function setSubscription()
 	{
-		return $this->userMail->id;
+		return $this->userMail ? $this->userMail->id : -1;
 	}
 
 	protected function error($reason)
