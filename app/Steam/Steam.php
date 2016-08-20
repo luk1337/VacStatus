@@ -68,7 +68,8 @@ class Steam {
 	}
 
 	public static function aliasTimeConvert($time) {
-		return strtotime(str_replace("@", "", $time));
+		$time = explode(" @ ", $time);
+		return strtotime(str_replace("@", "", sprintf("%s %s", $time[1], $time[0])));
 	}
 
 	public static function friendlyAlias($aliases)
@@ -83,7 +84,7 @@ class Steam {
 
     		$newAlias[] = [
     			'newname' => $alias['newname'],
-    			'timechanged' => date('M j Y', strtotime(str_replace("@", "", $alias['timechanged'])))
+    			'timechanged' => date('M j Y', self::aliasTimeConvert($alias['timechanged']))
 			];
 		}
 
