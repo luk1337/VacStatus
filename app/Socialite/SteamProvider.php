@@ -40,15 +40,9 @@ class SteamProvider extends AbstractProvider implements ProviderInterface
 		return $this->openIdURL;
 	}
 
-	public function getAccessToken($code)
+	public function getAccessTokenResponse($code)
 	{
-		$response = $this->getHttpClient()->post($this->openIdURL, [
-			'body' => $code,
-		]);
-
-		if(preg_match('/is_valid\s*:\s*true/i', $response->getBody()) !== 1) return false;
-
-		return str_replace('http://steamcommunity.com/openid/id/', '', $code['openid.claimed_id']);
+		return ['access_token' => str_replace('http://steamcommunity.com/openid/id/', '', $code['openid.claimed_id'])];
 	}
 
 	protected function getUserByToken($token)
