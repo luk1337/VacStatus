@@ -31,7 +31,7 @@ class CustomList
 			$userFriends = json_decode($user->friendslist);
 
 
-			if($user->id != $userList->user_id)
+			if($user->site_admin == 0 && $user->id != $userList->user_id)
 			{
 				$listAuthor = User::whereId($userList->user_id)->first();
 				if(($listAuthor->exists() && !empty($userFriends) && !in_array($listAuthor->small_id, $userFriends) && $userList->privacy == 2) || $userList->privacy == 3)
